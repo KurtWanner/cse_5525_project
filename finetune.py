@@ -89,14 +89,8 @@ class SupervisedDataset(Dataset):
         species1 = [SOS + d[0] for d in data]
         species2 = [SOS + d[1] for d in data]
 
-        if kmer != -1:
-
-            logging.warning(f"Using {kmer}-mer as input...")
-            sp1 = generate_kmer(species1, kmer)
-            sp2 = generate_kmer(species2, kmer)
-
         output1 = tokenizer(
-            sp1,
+            species1,
             return_tensors="pt",
             padding="longest",
             max_length=tokenizer.model_max_length,
@@ -104,7 +98,7 @@ class SupervisedDataset(Dataset):
         )
 
         output2 = tokenizer(
-            sp2,
+            species2,
             return_tensors="pt",
             padding="longest",
             max_length=tokenizer.model_max_length,
@@ -195,6 +189,9 @@ def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
         ),
     }
 
+def data_path(type, kmer):
+    return type + "_DNA_k" + str(kmer) + ".tsv"
+
 def train():
     parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
@@ -210,16 +207,17 @@ def train():
         trust_remote_code=True,
     )
 
+    k = int(data_args.kmer)
 
     # define datasets and data collator
     train_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, "train_DNA.tsv"), 
+                         data_path=os.path.join(data_args.data_path, data_path('train', k)), 
                          kmer=data_args.kmer)
     val_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, "dev_DNA.tsv"), 
+                         data_path=os.path.join(data_args.data_path, data_path('dev', k)), 
                          kmer=data_args.kmer)
     test_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, "test_DNA.tsv"), 
+                         data_path=os.path.join(data_args.data_path, data_path('test', k)), 
                          kmer=data_args.kmer)
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
