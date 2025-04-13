@@ -8,10 +8,16 @@ from typing import Any, Optional, Dict, Sequence, Tuple, List, Union
 
 from utils import *
 import torch
+import torch.distributed as dist
+import torch.nn as nn
+import torch.optim as optim
+import torch.multiprocessing as mp
+from torch.nn.parallel import DistributedDataParallel as DDP
 import transformers
 import sklearn
 import numpy as np
 from torch.utils.data import Dataset
+from distribute import *
 
 from peft import (
     LoraConfig,
@@ -84,12 +90,14 @@ class SupervisedDataset(Dataset):
 
         SOS = "<extra_id_0>"
 
-        print("Staring to load data: ", data_path)
+        print("Starting to load data: ", data_path)
 
         # load data from the disk
         with open(data_path, "r") as f:
             data = [line.split('\t') for line in f.readlines()]
         
+        print("Loaded all data.")
+
         species1 = [SOS + d[0] for d in data]
         species2 = [SOS + d[1] for d in data]
 
@@ -108,6 +116,8 @@ class SupervisedDataset(Dataset):
             max_length=tokenizer.model_max_length,
             truncation=True,
         )
+
+        print("Tokenized inputs.")
 
         self.input_ids = output1["input_ids"]
         self.attention_mask = output1["attention_mask"]
