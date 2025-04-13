@@ -2,15 +2,15 @@
 
 # This is your argument
 data_path=training_data
-kmer=$6
+kmer=6
 
 echo "The provided kmer is: $kmer, data_path is $data_path"
 
-python train.py \
+python finetune.py \
     --model_name_or_path zhihan1996/DNABERT-2-117M \
-    --data_path  ${data_path}/GUE/EMP/$data \
+    --data_path  ${data_path} \
     --kmer ${kmer} \
-    --run_name DNABERT1_${kmer}_EMP_${data}_seed${seed} \
+    --run_name DNABERT1_${kmer} \
     --model_max_length 512 \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 16 \

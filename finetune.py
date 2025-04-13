@@ -66,7 +66,7 @@ def generate_kmer_str(sequence: str, k: int) -> str:
     return " ".join([sequence[i:i+k] for i in range(len(sequence) - k + 1)])
 
 
-def generate_kmer(data_path: str, texts: List[str], k: int) -> List[str]:
+def generate_kmer(texts: List[str], k: int) -> List[str]:
     """Load or generate k-mer string for each DNA sequence."""
     return [generate_kmer_str(text, k) for text in texts] 
 
@@ -90,16 +90,10 @@ class SupervisedDataset(Dataset):
         species2 = [SOS + d[1] for d in data]
 
         if kmer != -1:
-            # only write file on the first process
-            if torch.distributed.get_rank() not in [0, -1]:
-                torch.distributed.barrier()
 
             logging.warning(f"Using {kmer}-mer as input...")
             sp1 = generate_kmer(species1, kmer)
             sp2 = generate_kmer(species2, kmer)
-
-            if torch.distributed.get_rank() == 0:
-                torch.distributed.barrier()
 
         output1 = tokenizer(
             sp1,
