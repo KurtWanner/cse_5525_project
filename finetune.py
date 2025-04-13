@@ -19,6 +19,8 @@ from peft import (
     get_peft_model_state_dict,
 )
 
+DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default="facebook/opt-125m")
@@ -81,6 +83,8 @@ class SupervisedDataset(Dataset):
         super(SupervisedDataset, self).__init__()
 
         SOS = "<extra_id_0>"
+
+        print("Staring to load data: ", data_path)
 
         # load data from the disk
         with open(data_path, "r") as f:

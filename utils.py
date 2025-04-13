@@ -5,12 +5,14 @@ from tqdm import tqdm
 import torch
 from transformers import AutoTokenizer, AutoModel
 
+DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
 
 def load_model(model_args, data_args, training_args):
     config = BertConfig.from_pretrained("zhihan1996/DNABERT-2-117M")
     model = AutoModel.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True, config=config)
 
-    return model
+    return model.to(DEVICE)
     
 def load_tokenizer(model_args, data_args, training_args):
     tokenizer = AutoTokenizer.from_pretrained(
