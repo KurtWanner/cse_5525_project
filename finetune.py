@@ -119,14 +119,19 @@ class SupervisedDataset(Dataset):
 
         self.input_ids = [x.input_ids for x in output1]
         self.attention_mask = [x.attention_mask for x in output1]
-        self.label_ids = [x.input_ids for x in output2]
+        self.decoder_input_ids = [x.input_ids[1:] for x in output2]
+        self.labels = [x.input_ids for x in output2]
 
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
-        return dict(input_ids=self.input_ids[i], \
-            output_ids=self.label_ids[i])
+        return dict(
+            input_ids=self.input_ids[i], 
+            attention_mask=self.attention_mask[i],
+            decoder_input_ids = self.decoder_input_ids[i],
+            labels=self.labels[i]
+        )
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):
@@ -136,17 +141,20 @@ class DataCollatorForSupervisedDataset(object):
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
         print(instances[0])
-        input_ids, output_ids = tuple([instance[key] for instance in instances] for key in ["input_ids", "output_ids"])
+        input_ids, attention_mask, decoder_input_ids = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids"])
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
         )
-        output_ids = torch.nn.utils.rnn.pad_sequence(
-            output_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        attention_mask = torch.nn.utils.rnn.pad_sequence(
+            attention_mask, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
+        decoder_input_ids = torch.nn.utils.rnn.pad_sequence(
+            decoder_input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
         )
         return dict(
             input_ids=input_ids,
-            labels=output_ids,
-            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
+            attention_mask=attention_mask,
+            decoder_input_ids=decoder_input_ids,
         )
 
 def preprocess_logits_for_metrics(logits:Union[torch.Tensor, Tuple[torch.Tensor, Any]], _):
@@ -232,7 +240,7 @@ def train():
     model = load_model(model_args, data_args, training_args)
 
     # define trainer
-    trainer = transformers.Trainer(model=model,
+    trainer = transformers.Seq2SeqTrainer(model=model,
                 tokenizer=tokenizer,
                 args=training_args,
                 preprocess_logits_for_metrics=preprocess_logits_for_metrics,
