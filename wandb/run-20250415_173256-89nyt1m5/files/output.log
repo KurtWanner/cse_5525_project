@@ -1,0 +1,26 @@
+  0%|                                                                                                                                                        | 0/6 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+ 33%|████████████████████████████████████████████████                                                                                                | 2/6 [00:00<00:01,  2.78it/s]Saving model checkpoint to output/dnabert_3/checkpoint-2
+Configuration saved in output/dnabert_3/checkpoint-2/config.json
+Configuration saved in output/dnabert_3/checkpoint-2/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-2/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-2/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-2/special_tokens_map.json
+ 67%|████████████████████████████████████████████████████████████████████████████████████████████████                                                | 4/6 [00:01<00:00,  2.66it/s]Saving model checkpoint to output/dnabert_3/checkpoint-4
+Configuration saved in output/dnabert_3/checkpoint-4/config.json
+Configuration saved in output/dnabert_3/checkpoint-4/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-4/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-4/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-4/special_tokens_map.json
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 6/6 [00:02<00:00,  2.65it/s]Saving model checkpoint to output/dnabert_3/checkpoint-6
+Configuration saved in output/dnabert_3/checkpoint-6/config.json
+Configuration saved in output/dnabert_3/checkpoint-6/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-6/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-6/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-6/special_tokens_map.json
+Training completed. Do not forget to share your model on huggingface.co/models =)
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 6/6 [00:02<00:00,  2.00it/s]
+***** Running Evaluation *****
+  Num examples = 32
+  Batch size = 16
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00, 11.36it/s]
+{'train_runtime': 93.2035, 'train_samples_per_second': 1.03, 'train_steps_per_second': 0.064, 'train_loss': 6.909173965454102, 'epoch': 3.0}

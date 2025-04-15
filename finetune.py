@@ -119,18 +119,18 @@ class SupervisedDataset(Dataset):
 
         self.input_ids = [x.input_ids for x in output1]
         self.attention_mask = [x.attention_mask for x in output1]
-        self.decoder_input_ids = [x.input_ids[1:] for x in output2]
-        self.labels = [x.input_ids for x in output2]
+        self.decoder_input_ids = [x.input_ids for x in output2]
+        self.labels = [torch.cat((x.input_ids[:,1:], torch.tensor([[0]])), dim=1) for x in output2]
 
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
         return dict(
-            input_ids=self.input_ids[i], 
-            attention_mask=self.attention_mask[i],
-            decoder_input_ids = self.decoder_input_ids[i],
-            labels=self.labels[i]
+            input_ids=self.input_ids[i][0], 
+            attention_mask=self.attention_mask[i][0],
+            decoder_input_ids = self.decoder_input_ids[i][0],
+            labels=self.labels[i][0]
         )
 
 @dataclass
@@ -140,8 +140,7 @@ class DataCollatorForSupervisedDataset(object):
     tokenizer: transformers.PreTrainedTokenizer
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        print(instances[0])
-        input_ids, attention_mask, decoder_input_ids = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids"])
+        input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
         )
@@ -151,10 +150,14 @@ class DataCollatorForSupervisedDataset(object):
         decoder_input_ids = torch.nn.utils.rnn.pad_sequence(
             decoder_input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
         )
+        labels = torch.nn.utils.rnn.pad_sequence(
+            labels, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
         return dict(
             input_ids=input_ids,
             attention_mask=attention_mask,
             decoder_input_ids=decoder_input_ids,
+            labels=labels,
         )
 
 def preprocess_logits_for_metrics(logits:Union[torch.Tensor, Tuple[torch.Tensor, Any]], _):
@@ -191,8 +194,8 @@ Compute metrics used for huggingface trainer.
 """ 
 def compute_metrics(eval_pred):
     predictions, labels = eval_pred
-    return calculate_metric_with_sklearn(predictions, labels)
-
+    #return calculate_metric_with_sklearn(predictions, labels)
+    return {"f1": 0.0}
 def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
     valid_mask = labels != -100  # Exclude padding tokens (assuming -100 is the padding token ID)
     valid_predictions = predictions[valid_mask]
@@ -215,6 +218,12 @@ def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
 
 def data_path(type, kmer):
     return type + "_DNA_k" + str(kmer) + ".tsv"
+
+criterion = nn.CrossEntropyLoss()
+def loss_func(outputs, labels, num_items_in_batch):
+    logits = outputs['logits']    
+    non_pad = labels != 0
+    return criterion(logits[non_pad], labels[non_pad])
 
 def train():
     parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
@@ -240,10 +249,10 @@ def train():
     model = load_model(model_args, data_args, training_args)
 
     # define trainer
-    trainer = transformers.Seq2SeqTrainer(model=model,
+    trainer = transformers.Trainer(model=model,
                 tokenizer=tokenizer,
                 args=training_args,
-                preprocess_logits_for_metrics=preprocess_logits_for_metrics,
+                compute_loss_func=loss_func,
                 compute_metrics=compute_metrics,
                 train_dataset=train_dataset,
                 eval_dataset=val_dataset,

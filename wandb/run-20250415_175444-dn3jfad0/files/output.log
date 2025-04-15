@@ -1,0 +1,178 @@
+  0%|                                                                                                                                                      | 0/280 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+  5%|███████                                                                                                                                      | 14/280 [00:07<02:09,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-14
+{'loss': 7.0968, 'grad_norm': 11.555363655090332, 'learning_rate': 3.6e-06, 'epoch': 0.71}
+Configuration saved in output/dnabert_3/checkpoint-14/config.json
+Configuration saved in output/dnabert_3/checkpoint-14/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-14/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-14/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-14/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-14] due to args.save_total_limit
+ 10%|██████████████                                                                                                                               | 28/280 [00:14<02:03,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-28
+{'loss': 7.4446, 'grad_norm': 5.6773152351379395, 'learning_rate': 9e-06, 'epoch': 1.43}
+Configuration saved in output/dnabert_3/checkpoint-28/config.json
+Configuration saved in output/dnabert_3/checkpoint-28/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-28/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-28/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-28/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-28] due to args.save_total_limit
+ 15%|█████████████████████▏                                                                                                                       | 42/280 [00:22<01:56,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-42
+{'loss': 5.8146, 'grad_norm': nan, 'learning_rate': 1.32e-05, 'epoch': 2.14}
+{'loss': 4.9533, 'grad_norm': 2.0908725261688232, 'learning_rate': 1.6800000000000002e-05, 'epoch': 2.86}
+Configuration saved in output/dnabert_3/checkpoint-42/config.json
+Configuration saved in output/dnabert_3/checkpoint-42/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-42/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-42/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-42/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-42] due to args.save_total_limit
+ 20%|████████████████████████████▏                                                                                                                | 56/280 [00:29<01:49,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-56
+{'loss': 4.4763, 'grad_norm': 1.7152937650680542, 'learning_rate': 2.04e-05, 'epoch': 3.57}
+Configuration saved in output/dnabert_3/checkpoint-56/config.json
+Configuration saved in output/dnabert_3/checkpoint-56/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-56/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-56/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-56/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-56] due to args.save_total_limit
+ 25%|███████████████████████████████████▎                                                                                                         | 70/280 [00:37<01:42,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-70
+{'loss': 4.3452, 'grad_norm': 1.7608880996704102, 'learning_rate': 2.58e-05, 'epoch': 4.29}
+{'loss': 3.3817, 'grad_norm': 1.2511465549468994, 'learning_rate': 2.9869565217391304e-05, 'epoch': 5.0}
+Configuration saved in output/dnabert_3/checkpoint-70/config.json
+Configuration saved in output/dnabert_3/checkpoint-70/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-70/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-70/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-70/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-70] due to args.save_total_limit
+ 30%|██████████████████████████████████████████▎                                                                                                  | 84/280 [00:44<01:35,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-84
+{'loss': 2.6669, 'grad_norm': 1.6078780889511108, 'learning_rate': 2.8956521739130434e-05, 'epoch': 5.71}
+Configuration saved in output/dnabert_3/checkpoint-84/config.json
+Configuration saved in output/dnabert_3/checkpoint-84/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-84/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-84/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-84/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-84] due to args.save_total_limit
+ 35%|█████████████████████████████████████████████████▎                                                                                           | 98/280 [00:52<01:28,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-98
+{'loss': 2.6148, 'grad_norm': 0.500681459903717, 'learning_rate': 2.7782608695652174e-05, 'epoch': 6.43}
+Configuration saved in output/dnabert_3/checkpoint-98/config.json
+Configuration saved in output/dnabert_3/checkpoint-98/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-98/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-98/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-98/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-98] due to args.save_total_limit
+ 40%|████████████████████████████████████████████████████████                                                                                    | 112/280 [00:59<01:22,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-112
+{'loss': 2.4594, 'grad_norm': nan, 'learning_rate': 2.6869565217391306e-05, 'epoch': 7.14}
+{'loss': 2.5538, 'grad_norm': 0.0, 'learning_rate': 2.5956521739130435e-05, 'epoch': 7.86}
+Configuration saved in output/dnabert_3/checkpoint-112/config.json
+Configuration saved in output/dnabert_3/checkpoint-112/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-112/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-112/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-112/special_tokens_map.json
+ 45%|███████████████████████████████████████████████████████████████                                                                             | 126/280 [01:07<01:14,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-126
+{'loss': 2.8069, 'grad_norm': 0.0, 'learning_rate': 2.5043478260869564e-05, 'epoch': 8.57}
+Configuration saved in output/dnabert_3/checkpoint-126/config.json
+Configuration saved in output/dnabert_3/checkpoint-126/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-126/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-126/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-126/special_tokens_map.json
+ 50%|██████████████████████████████████████████████████████████████████████                                                                      | 140/280 [01:14<01:07,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-140
+{'loss': 3.0731, 'grad_norm': 0.0, 'learning_rate': 2.3869565217391304e-05, 'epoch': 9.29}
+{'loss': 2.3658, 'grad_norm': nan, 'learning_rate': 2.2956521739130437e-05, 'epoch': 10.0}
+Configuration saved in output/dnabert_3/checkpoint-140/config.json
+Configuration saved in output/dnabert_3/checkpoint-140/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-140/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-140/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-140/special_tokens_map.json
+ 55%|█████████████████████████████████████████████████████████████████████████████                                                               | 154/280 [01:22<01:01,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-154
+{'loss': 2.7297, 'grad_norm': 0.0, 'learning_rate': 2.2043478260869566e-05, 'epoch': 10.71}
+Configuration saved in output/dnabert_3/checkpoint-154/config.json
+Configuration saved in output/dnabert_3/checkpoint-154/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-154/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-154/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-154/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-112] due to args.save_total_limit
+ 60%|████████████████████████████████████████████████████████████████████████████████████                                                        | 168/280 [01:29<00:54,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-168
+{'loss': 2.8108, 'grad_norm': 0.0, 'learning_rate': 2.11304347826087e-05, 'epoch': 11.43}
+Configuration saved in output/dnabert_3/checkpoint-168/config.json
+Configuration saved in output/dnabert_3/checkpoint-168/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-168/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-168/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-168/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-126] due to args.save_total_limit
+ 65%|███████████████████████████████████████████████████████████████████████████████████████████                                                 | 182/280 [01:39<00:48,  2.03it/s]Saving model checkpoint to output/dnabert_3/checkpoint-182
+{'loss': 2.8754, 'grad_norm': 0.0, 'learning_rate': 2.0217391304347828e-05, 'epoch': 12.14}
+{'loss': 2.9192, 'grad_norm': 0.0, 'learning_rate': 1.917391304347826e-05, 'epoch': 12.86}
+Configuration saved in output/dnabert_3/checkpoint-182/config.json
+Configuration saved in output/dnabert_3/checkpoint-182/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-182/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-182/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-182/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-140] due to args.save_total_limit
+ 70%|██████████████████████████████████████████████████████████████████████████████████████████████████                                          | 196/280 [01:47<00:40,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-196
+{'loss': 2.7485, 'grad_norm': nan, 'learning_rate': 1.8260869565217393e-05, 'epoch': 13.57}
+Configuration saved in output/dnabert_3/checkpoint-196/config.json
+Configuration saved in output/dnabert_3/checkpoint-196/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-196/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-196/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-196/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-154] due to args.save_total_limit
+ 75%|█████████████████████████████████████████████████████████████████████████████████████████████████████████                                   | 210/280 [01:54<00:33,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-210
+{'loss': 3.0318, 'grad_norm': 0.0, 'learning_rate': 1.7217391304347826e-05, 'epoch': 14.29}
+{'loss': 2.997, 'grad_norm': nan, 'learning_rate': 1.6304347826086955e-05, 'epoch': 15.0}
+Configuration saved in output/dnabert_3/checkpoint-210/config.json
+Configuration saved in output/dnabert_3/checkpoint-210/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-210/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-210/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-210/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-168] due to args.save_total_limit
+ 80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████                            | 224/280 [02:02<00:27,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-224
+{'loss': 2.9805, 'grad_norm': 0.0, 'learning_rate': 1.5391304347826088e-05, 'epoch': 15.71}
+Configuration saved in output/dnabert_3/checkpoint-224/config.json
+Configuration saved in output/dnabert_3/checkpoint-224/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-224/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-224/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-224/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-182] due to args.save_total_limit
+ 85%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████                     | 238/280 [02:09<00:20,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-238
+{'loss': 2.7439, 'grad_norm': nan, 'learning_rate': 1.4608695652173915e-05, 'epoch': 16.43}
+Configuration saved in output/dnabert_3/checkpoint-238/config.json
+Configuration saved in output/dnabert_3/checkpoint-238/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-238/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-238/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-238/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-196] due to args.save_total_limit
+ 90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████              | 252/280 [02:16<00:13,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-252
+{'loss': 3.1759, 'grad_norm': 0.0, 'learning_rate': 1.3434782608695653e-05, 'epoch': 17.14}
+{'loss': 2.9265, 'grad_norm': 0.0, 'learning_rate': 1.2391304347826088e-05, 'epoch': 17.86}
+Configuration saved in output/dnabert_3/checkpoint-252/config.json
+Configuration saved in output/dnabert_3/checkpoint-252/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-252/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-252/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-252/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-210] due to args.save_total_limit
+ 95%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████       | 266/280 [02:24<00:06,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-266
+{'loss': 2.7046, 'grad_norm': 0.0, 'learning_rate': 1.1478260869565218e-05, 'epoch': 18.57}
+Configuration saved in output/dnabert_3/checkpoint-266/config.json
+Configuration saved in output/dnabert_3/checkpoint-266/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-266/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-266/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-266/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-224] due to args.save_total_limit
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 280/280 [02:31<00:00,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-280
+{'loss': 3.1008, 'grad_norm': 0.0, 'learning_rate': 1.0304347826086957e-05, 'epoch': 19.29}
+{'loss': 2.9474, 'grad_norm': 0.0, 'learning_rate': 9.391304347826087e-06, 'epoch': 20.0}
+Configuration saved in output/dnabert_3/checkpoint-280/config.json
+Configuration saved in output/dnabert_3/checkpoint-280/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-280/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-280/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-280/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-238] due to args.save_total_limit
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 280/280 [02:32<00:00,  1.84it/s]
+{'train_runtime': 156.8137, 'train_samples_per_second': 28.314, 'train_steps_per_second': 1.786, 'train_loss': 3.455187429700579, 'epoch': 20.0}
+
+***** Running Evaluation *****
+  Num examples = 32
+  Batch size = 16
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.74it/s]

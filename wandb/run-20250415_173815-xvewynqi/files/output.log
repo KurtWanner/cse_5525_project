@@ -1,0 +1,75 @@
+  0%|                                                                                                                                                       | 0/20 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+ 10%|██████████████▎                                                                                                                                | 2/20 [00:01<00:11,  1.60it/s]Saving model checkpoint to output/dnabert_3/checkpoint-2
+Configuration saved in output/dnabert_3/checkpoint-2/config.json
+Configuration saved in output/dnabert_3/checkpoint-2/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-2/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-2/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-2/special_tokens_map.json
+ 20%|████████████████████████████▌                                                                                                                  | 4/20 [00:02<00:10,  1.48it/s]Saving model checkpoint to output/dnabert_3/checkpoint-4
+Configuration saved in output/dnabert_3/checkpoint-4/config.json
+Configuration saved in output/dnabert_3/checkpoint-4/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-4/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-4/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-4/special_tokens_map.json
+ 30%|██████████████████████████████████████████▉                                                                                                    | 6/20 [00:04<00:09,  1.44it/s]Saving model checkpoint to output/dnabert_3/checkpoint-6
+Configuration saved in output/dnabert_3/checkpoint-6/config.json
+Configuration saved in output/dnabert_3/checkpoint-6/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-6/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-6/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-6/special_tokens_map.json
+ 40%|█████████████████████████████████████████████████████████▏                                                                                     | 8/20 [00:05<00:08,  1.43it/s]Saving model checkpoint to output/dnabert_3/checkpoint-8
+Configuration saved in output/dnabert_3/checkpoint-8/config.json
+Configuration saved in output/dnabert_3/checkpoint-8/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-8/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-8/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-8/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-2] due to args.save_total_limit
+ 50%|███████████████████████████████████████████████████████████████████████                                                                       | 10/20 [00:12<00:18,  1.82s/it]Saving model checkpoint to output/dnabert_3/checkpoint-10
+Configuration saved in output/dnabert_3/checkpoint-10/config.json
+Configuration saved in output/dnabert_3/checkpoint-10/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-10/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-10/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-10/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-4] due to args.save_total_limit
+ 60%|█████████████████████████████████████████████████████████████████████████████████████▏                                                        | 12/20 [00:19<00:19,  2.40s/it]Saving model checkpoint to output/dnabert_3/checkpoint-12
+Configuration saved in output/dnabert_3/checkpoint-12/config.json
+Configuration saved in output/dnabert_3/checkpoint-12/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-12/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-12/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-12/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-6] due to args.save_total_limit
+ 70%|███████████████████████████████████████████████████████████████████████████████████████████████████▍                                          | 14/20 [00:22<00:11,  1.96s/it]Saving model checkpoint to output/dnabert_3/checkpoint-14
+Configuration saved in output/dnabert_3/checkpoint-14/config.json
+Configuration saved in output/dnabert_3/checkpoint-14/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-14/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-14/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-14/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-8] due to args.save_total_limit
+ 80%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌                            | 16/20 [00:25<00:06,  1.51s/it]Saving model checkpoint to output/dnabert_3/checkpoint-16
+Configuration saved in output/dnabert_3/checkpoint-16/config.json
+Configuration saved in output/dnabert_3/checkpoint-16/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-16/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-16/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-16/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-10] due to args.save_total_limit
+ 90%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊              | 18/20 [00:26<00:02,  1.10s/it]Saving model checkpoint to output/dnabert_3/checkpoint-18
+Configuration saved in output/dnabert_3/checkpoint-18/config.json
+Configuration saved in output/dnabert_3/checkpoint-18/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-18/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-18/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-18/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-12] due to args.save_total_limit
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:34<00:00,  2.10s/it]Saving model checkpoint to output/dnabert_3/checkpoint-20
+Configuration saved in output/dnabert_3/checkpoint-20/config.json
+Configuration saved in output/dnabert_3/checkpoint-20/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-20/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-20/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-20/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-14] due to args.save_total_limit
+Training completed. Do not forget to share your model on huggingface.co/models =)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:37<00:00,  1.88s/it]
+***** Running Evaluation *****
+  Num examples = 32
+  Batch size = 16
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.76it/s]
+{'train_runtime': 52.7372, 'train_samples_per_second': 6.068, 'train_steps_per_second': 0.379, 'train_loss': 7.249228668212891, 'epoch': 10.0}

@@ -11,20 +11,22 @@ python finetune.py \
     --data_path  ${data_path} \
     --kmer ${kmer} \
     --run_name DNABERT1_${kmer} \
-    --model_max_length 512 \
+    --model_max_length 1024 \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 16 \
     --gradient_accumulation_steps 1 \
     --learning_rate 3e-5 \
-    --num_train_epochs 3 \
+    --num_train_epochs 20 \
     --fp16 \
-    --save_steps 200 \
     --output_dir output/dnabert_${kmer} \
-    --evaluation_strategy steps \
-    --eval_steps 200 \
+    --evaluation_strategy epoch \
+    --save_strategy epoch \
     --warmup_steps 50 \
-    --logging_steps 100000 \
     --overwrite_output_dir True \
     --log_level info \
+    --logging_steps 10 \
     --seed 42 \
-    --find_unused_parameters False
+    --find_unused_parameters False \
+    --load_best_model_at_end False \
+
+

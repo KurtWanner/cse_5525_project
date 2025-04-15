@@ -1,0 +1,101 @@
+  0%|                                                                                                                                                      | 0/140 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+
+
+ 10%|██████████████                                                                                                                               | 14/140 [00:07<01:01,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-14
+Configuration saved in output/dnabert_3/checkpoint-14/config.json
+Configuration saved in output/dnabert_3/checkpoint-14/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-14/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-14/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-14/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-14] due to args.save_total_limit
+
+
+ 20%|████████████████████████████▏                                                                                                                | 28/140 [00:14<00:54,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-28
+Configuration saved in output/dnabert_3/checkpoint-28/config.json
+Configuration saved in output/dnabert_3/checkpoint-28/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-28/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-28/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-28/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-16] due to args.save_total_limit
+
+
+ 30%|██████████████████████████████████████████▎                                                                                                  | 42/140 [00:22<00:47,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-42
+Configuration saved in output/dnabert_3/checkpoint-42/config.json
+Configuration saved in output/dnabert_3/checkpoint-42/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-42/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-42/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-42/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-18] due to args.save_total_limit
+
+
+
+ 40%|████████████████████████████████████████████████████████▍                                                                                    | 56/140 [00:29<00:40,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-56
+Configuration saved in output/dnabert_3/checkpoint-56/config.json
+Configuration saved in output/dnabert_3/checkpoint-56/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-56/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-56/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-56/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-20] due to args.save_total_limit
+
+
+ 50%|██████████████████████████████████████████████████████████████████████▌                                                                      | 70/140 [00:37<00:34,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-70
+Configuration saved in output/dnabert_3/checkpoint-70/config.json
+Configuration saved in output/dnabert_3/checkpoint-70/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-70/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-70/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-70/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-28] due to args.save_total_limit
+
+
+ 60%|████████████████████████████████████████████████████████████████████████████████████▌                                                        | 84/140 [00:44<00:27,  2.05it/s]Saving model checkpoint to output/dnabert_3/checkpoint-84
+Configuration saved in output/dnabert_3/checkpoint-84/config.json
+Configuration saved in output/dnabert_3/checkpoint-84/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-84/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-84/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-84/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-42] due to args.save_total_limit
+
+
+
+ 70%|██████████████████████████████████████████████████████████████████████████████████████████████████▋                                          | 98/140 [00:52<00:20,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-98
+Configuration saved in output/dnabert_3/checkpoint-98/config.json
+Configuration saved in output/dnabert_3/checkpoint-98/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-98/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-98/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-98/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-56] due to args.save_total_limit
+
+
+ 80%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████                            | 112/140 [00:59<00:13,  2.06it/s]Saving model checkpoint to output/dnabert_3/checkpoint-112
+Configuration saved in output/dnabert_3/checkpoint-112/config.json
+Configuration saved in output/dnabert_3/checkpoint-112/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-112/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-112/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-112/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-70] due to args.save_total_limit
+
+
+
+ 90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████              | 126/140 [01:08<00:06,  2.04it/s]Saving model checkpoint to output/dnabert_3/checkpoint-126
+Configuration saved in output/dnabert_3/checkpoint-126/config.json
+Configuration saved in output/dnabert_3/checkpoint-126/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-126/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-126/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-126/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-84] due to args.save_total_limit
+
+
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 140/140 [01:19<00:00,  2.01it/s]Saving model checkpoint to output/dnabert_3/checkpoint-140
+Configuration saved in output/dnabert_3/checkpoint-140/config.json
+Configuration saved in output/dnabert_3/checkpoint-140/generation_config.json
+Model weights saved in output/dnabert_3/checkpoint-140/model.safetensors
+tokenizer config file saved in output/dnabert_3/checkpoint-140/tokenizer_config.json
+Special tokens file saved in output/dnabert_3/checkpoint-140/special_tokens_map.json
+Deleting older checkpoint [output/dnabert_3/checkpoint-98] due to args.save_total_limit
+Training completed. Do not forget to share your model on huggingface.co/models =)
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 140/140 [01:24<00:00,  1.66it/s]
+***** Running Evaluation *****
+  Num examples = 32
+  Batch size = 16
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.73it/s]
+{'train_runtime': 92.4557, 'train_samples_per_second': 24.011, 'train_steps_per_second': 1.514, 'train_loss': 4.5425262451171875, 'epoch': 10.0}
