@@ -25,6 +25,7 @@ from peft import (
     get_peft_model_state_dict,
 )
 
+PAD_IDX = 0
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 @dataclass
@@ -88,8 +89,6 @@ class SupervisedDataset(Dataset):
 
         super(SupervisedDataset, self).__init__()
 
-        SOS = "<extra_id_0>"
-
         print("Starting to load data: ", data_path)
 
         # load data from the disk
@@ -98,8 +97,8 @@ class SupervisedDataset(Dataset):
         
         print("Loaded all data.")
 
-        species1 = [SOS + d[0] for d in data]
-        species2 = [SOS + d[1] for d in data]
+        species1 = [d[0] for d in data]
+        species2 = [d[1] for d in data]
 
         output1 = [tokenizer(
             x,
@@ -120,7 +119,7 @@ class SupervisedDataset(Dataset):
         self.input_ids = [x.input_ids for x in output1]
         self.attention_mask = [x.attention_mask for x in output1]
         self.decoder_input_ids = [x.input_ids for x in output2]
-        self.labels = [torch.cat((x.input_ids[:,1:], torch.tensor([[0]])), dim=1) for x in output2]
+        self.labels = [torch.cat((x.input_ids[:,1:], torch.tensor([[PAD_IDX]])), dim=1) for x in output2]
 
     def __len__(self):
         return len(self.input_ids)
@@ -197,7 +196,7 @@ def compute_metrics(eval_pred):
     #return calculate_metric_with_sklearn(predictions, labels)
     return {"f1": 0.0}
 def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
-    valid_mask = labels != -100  # Exclude padding tokens (assuming -100 is the padding token ID)
+    valid_mask = labels != PAD_IDX  # Exclude padding tokens 
     valid_predictions = predictions[valid_mask]
     valid_labels = labels[valid_mask]
     return {

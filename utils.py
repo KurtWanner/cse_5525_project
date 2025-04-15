@@ -24,8 +24,7 @@ def load_model(model_args, data_args, training_args):
     
 def load_tokenizer(model_args, data_args, training_args):
     tokenizer = AutoTokenizer.from_pretrained(
-        "zhihan1996/DNABERT-2-117M",
-        cache_dir=training_args.cache_dir,
+        "./kmer_tokenizers/" + data_args.kmer + "mer.model",
         model_max_length=training_args.model_max_length,
         padding_side="right",
         use_fast=True,
