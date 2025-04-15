@@ -1,0 +1,294 @@
+{
+    "os": "Linux-3.10.0-1160.133.1.el7.x86_64-x86_64-with-glibc2.17",
+    "python": "3.10.16",
+    "heartbeatAt": "2025-04-13T04:26:04.353443",
+    "startedAt": "2025-04-13T04:26:04.180510",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--model_name_or_path",
+        "zhihan1996/DNABERT-2-117M",
+        "--data_path",
+        "training_data",
+        "--kmer",
+        "3",
+        "--run_name",
+        "DNABERT1_3",
+        "--model_max_length",
+        "512",
+        "--per_device_train_batch_size",
+        "16",
+        "--per_device_eval_batch_size",
+        "16",
+        "--gradient_accumulation_steps",
+        "1",
+        "--learning_rate",
+        "3e-5",
+        "--num_train_epochs",
+        "3",
+        "--fp16",
+        "--save_steps",
+        "200",
+        "--output_dir",
+        "output/dnabert_3",
+        "--evaluation_strategy",
+        "steps",
+        "--eval_steps",
+        "200",
+        "--warmup_steps",
+        "50",
+        "--logging_steps",
+        "100000",
+        "--overwrite_output_dir",
+        "True",
+        "--log_level",
+        "info",
+        "--seed",
+        "42",
+        "--find_unused_parameters",
+        "False"
+    ],
+    "state": "running",
+    "program": "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py",
+    "codePathLocal": "finetune.py",
+    "codePath": "finetune.py",
+    "git": {
+        "remote": "git@github.com:KurtWanner/cse_5525_project.git",
+        "commit": "ce11ead8f77b3b46ad104e2976bff2037259d3fd"
+    },
+    "email": "kurt.wanner5625@gmail.com",
+    "root": "/fs/scratch/PAS2912/rodent_translation/cse_5525_project",
+    "host": "p0253.ten.osc.edu",
+    "username": "kurtwanner",
+    "executable": "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/bin/python",
+    "cpu_count": 40,
+    "cpu_count_logical": 40,
+    "cpu_freq": {
+        "current": 1012.6788500000002,
+        "min": 1000.0,
+        "max": 3700.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1198.095,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1088.085,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1095.41,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1089.99,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1002.978,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1047.801,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1090.576,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1021.582,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.195,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1024.804,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.195,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.195,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1007.373,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 1052.05,
+            "min": 1000.0,
+            "max": 3700.0
+        },
+        {
+            "current": 999.902,
+            "min": 1000.0,
+            "max": 3700.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 190.0,
+            "used": 156.73809814453125
+        }
+    },
+    "gpu": "Tesla V100-PCIE-16GB",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "Tesla V100-PCIE-16GB",
+            "memory_total": 17179869184
+        },
+        {
+            "name": "Tesla V100-PCIE-16GB",
+            "memory_total": 17179869184
+        }
+    ],
+    "memory": {
+        "total": 376.5265235900879
+    }
+}

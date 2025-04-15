@@ -101,33 +101,32 @@ class SupervisedDataset(Dataset):
         species1 = [SOS + d[0] for d in data]
         species2 = [SOS + d[1] for d in data]
 
-        output1 = tokenizer(
-            species1,
+        output1 = [tokenizer(
+            x,
             return_tensors="pt",
-            padding="longest",
             max_length=tokenizer.model_max_length,
             truncation=True,
-        )
+        ) for x in species1]
 
-        output2 = tokenizer(
-            species2,
+        output2 = [tokenizer(
+            x,
             return_tensors="pt",
-            padding="longest",
             max_length=tokenizer.model_max_length,
             truncation=True,
-        )
+        ) for x in species2]
 
         print("Tokenized inputs.")
 
-        self.input_ids = output1["input_ids"]
-        self.attention_mask = output1["attention_mask"]
-        self.labels = output2["input_ids"]
+        self.input_ids = [x.input_ids for x in output1]
+        self.attention_mask = [x.attention_mask for x in output1]
+        self.label_ids = [x.input_ids for x in output2]
 
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
-        return dict(input_ids=self.input_ids[i], labels=self.labels[i])
+        return dict(input_ids=self.input_ids[i], \
+            output_ids=self.label_ids[i])
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):
@@ -136,14 +135,17 @@ class DataCollatorForSupervisedDataset(object):
     tokenizer: transformers.PreTrainedTokenizer
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
+        print(instances[0])
+        input_ids, output_ids = tuple([instance[key] for instance in instances] for key in ["input_ids", "output_ids"])
         input_ids = torch.nn.utils.rnn.pad_sequence(
             input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
         )
-        labels = torch.Tensor(labels).long()
+        output_ids = torch.nn.utils.rnn.pad_sequence(
+            output_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
         return dict(
             input_ids=input_ids,
-            labels=labels,
+            labels=output_ids,
             attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
         )
 
@@ -212,15 +214,6 @@ def train():
 
     # load tokenizer
     tokenizer = load_tokenizer(model_args, data_args, training_args)
-    transformers.AutoTokenizer.from_pretrained(
-        model_args.model_name_or_path,
-        cache_dir=training_args.cache_dir,
-        model_max_length=training_args.model_max_length,
-        padding_side="right",
-        use_fast=True,
-        trust_remote_code=True,
-    )
-
     k = int(data_args.kmer)
 
     # define datasets and data collator
@@ -236,10 +229,7 @@ def train():
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
     # load model
-    model = transformers.AutoModelForSequenceClassification.from_pretrained(
-        model_args.model_name_or_path,
-        trust_remote_code=True,
-    )
+    model = load_model(model_args, data_args, training_args)
 
     # define trainer
     trainer = transformers.Trainer(model=model,

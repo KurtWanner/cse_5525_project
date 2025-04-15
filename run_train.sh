@@ -2,7 +2,7 @@
 
 # This is your argument
 data_path=training_data
-kmer=6
+kmer=3
 
 echo "The provided kmer is: $kmer, data_path is $data_path"
 

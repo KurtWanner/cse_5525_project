@@ -4,6 +4,7 @@ from tqdm import tqdm
 
 import torch
 from transformers import AutoTokenizer, AutoModel
+from transformers.models.bert.configuration_bert import BertConfig
 
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
