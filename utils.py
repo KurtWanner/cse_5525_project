@@ -13,6 +13,9 @@ def load_model(model_args, data_args, training_args):
 
     config = T5Config.from_pretrained("google-t5/t5-small")
     model = T5ForConditionalGeneration(config)
+
+    tokenizer = load_tokenizer(model_args, data_args, training_args)
+    model.resize_token_embeddings(len(tokenizer))
     
     #config = BertConfig.from_pretrained(model_args.model_name_or_path)
     #model = AutoModel.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, config=config)
