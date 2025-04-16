@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd ..
 # This is your argument
 data_path=training_data
 kmer=3
@@ -7,10 +7,10 @@ kmer=3
 echo "The provided kmer is: $kmer, data_path is $data_path"
 
 python finetune.py \
-    --model_name_or_path zhihan1996/DNABERT-2-117M \
+    --model_name_or_path google-t5/t5-base \
     --data_path  ${data_path} \
     --kmer ${kmer} \
-    --run_name DNABERT1_${kmer}_test \
+    --run_name t5_base${kmer} \
     --model_max_length 2048 \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 16 \
@@ -19,7 +19,7 @@ python finetune.py \
     --weight_decay 1e-2 \
     --num_train_epochs 10 \
     --fp16 \
-    --output_dir output/dnabert_${kmer} \
+    --output_dir output/t5_base_${kmer} \
     --evaluation_strategy epoch \
     --save_strategy epoch \
     --warmup_steps 50 \
@@ -29,4 +29,4 @@ python finetune.py \
     --find_unused_parameters False \
     --load_best_model_at_end False \
 
-
+cd scripts/

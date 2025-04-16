@@ -1,0 +1,28 @@
+  0%|                                                                                                                                                     | 0/3470 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 287, in <module>
+    train()
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 271, in train
+    trainer.train()
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2514, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 5243, in get_batch_samples
+    batch_samples.append(next(epoch_iterator))
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/accelerate/data_loader.py", line 452, in __iter__
+    current_batch = next(dataloader_iter)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 631, in __next__
+    data = self._next_data()
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 675, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 54, in fetch
+    return self.collate_fn(data)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer_utils.py", line 871, in __call__
+    return self.data_collator(features)
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 154, in __call__
+    input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 154, in <genexpr>
+    input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 154, in <listcomp>
+    input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
+KeyError: 'labels'

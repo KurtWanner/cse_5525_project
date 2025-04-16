@@ -1,0 +1,75 @@
+  0%|                                                                                                                                                     | 0/3470 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+ 15%|█████████████████████▎                                                                                                                     | 532/3470 [05:31<30:52,  1.59it/s]Traceback (most recent call last):
+{'loss': 11.2135, 'grad_norm': 70.52684020996094, 'learning_rate': 4.2000000000000006e-07, 'epoch': 0.06}
+{'loss': 8.6447, 'grad_norm': 4.820890426635742, 'learning_rate': 1.0200000000000002e-06, 'epoch': 0.12}
+{'loss': 11.3131, 'grad_norm': nan, 'learning_rate': 1.8e-06, 'epoch': 0.17}
+{'loss': 7.1747, 'grad_norm': 0.0, 'learning_rate': 2.28e-06, 'epoch': 0.23}
+{'loss': 7.5819, 'grad_norm': 0.0, 'learning_rate': 2.7600000000000003e-06, 'epoch': 0.29}
+{'loss': 3.0844, 'grad_norm': 0.0, 'learning_rate': 3e-06, 'epoch': 0.35}
+{'loss': 7.7032, 'grad_norm': 0.0, 'learning_rate': 2.9929824561403507e-06, 'epoch': 0.4}
+{'loss': 7.4963, 'grad_norm': 0.0, 'learning_rate': 2.986842105263158e-06, 'epoch': 0.46}
+{'loss': 9.2806, 'grad_norm': nan, 'learning_rate': 2.979824561403509e-06, 'epoch': 0.52}
+{'loss': 10.7883, 'grad_norm': nan, 'learning_rate': 2.970175438596491e-06, 'epoch': 0.58}
+{'loss': 5.0764, 'grad_norm': nan, 'learning_rate': 2.9657894736842106e-06, 'epoch': 0.63}
+{'loss': 10.5784, 'grad_norm': nan, 'learning_rate': 2.957017543859649e-06, 'epoch': 0.69}
+{'loss': 5.2338, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 0.75}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 0.81}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 0.86}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 0.92}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 0.98}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.04}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.1}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.15}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.21}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.27}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.33}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.38}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.44}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 2.955263157894737e-06, 'epoch': 1.5}
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 287, in <module>
+    train()
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 271, in train
+    trainer.train()
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2560, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 3736, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 3801, in compute_loss
+    outputs = model(**inputs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/accelerate/utils/operations.py", line 825, in forward
+    return model_forward(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/accelerate/utils/operations.py", line 813, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 16, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/models/t5/modeling_t5.py", line 1905, in forward
+    decoder_outputs = self.decoder(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/models/t5/modeling_t5.py", line 1131, in forward
+    layer_outputs = layer_module(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/models/t5/modeling_t5.py", line 732, in forward
+    hidden_states = self.layer[-1](hidden_states)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/models/t5/modeling_t5.py", line 345, in forward
+    forwarded_states = self.layer_norm(hidden_states)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+KeyboardInterrupt

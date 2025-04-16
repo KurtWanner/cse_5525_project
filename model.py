@@ -15,10 +15,9 @@ tokenizer = AutoTokenizer.from_pretrained(
     trust_remote_code=True,
 )
 
+t_t5 = AutoTokenizer.from_pretrained('google-t5/t5-small')
+
 s = "AGC GCT CTN NNT TTN TAG NNN TAG"
-x = tokenizer(s.split(), is_split_into_words=True)
-print(x.input_ids)
-print(len(tokenizer))
 
 def gen_seq(i, k):
     s = ""
@@ -31,16 +30,16 @@ def gen_seq(i, k):
 def kmer_iterator(k):
     for i in range(5 ** k):
         yield gen_seq(i, k)
-
+"""
 t = tokenizer.train_new_from_iterator([], vocab_size=3)
 
 for w in kmer_iterator(3):
     t.add_tokens(AddedToken(w))
+"""
 
-print(len(t))
+print(tokenizer([s], return_tensors='pt').input_ids.dtype)
+print(t_t5([s], return_tensors='pt').input_ids.dtype)
 
-print(s)
-print(t([s], is_split_into_words=True).input_ids)
-
-t.save_pretrained('./kmer_tokenizers/3mer.model')
+a = torch.tensor([1, 5, 10])
+print(torch.ones_like(a).dtype)
 

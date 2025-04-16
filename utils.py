@@ -3,7 +3,7 @@ import random
 from tqdm import tqdm
 
 import torch
-from transformers import AutoTokenizer, AutoModel, T5ForConditionalGeneration, T5Config
+from transformers import AutoTokenizer, AutoModel, AutoConfig, T5ForConditionalGeneration
 from transformers.models.bert.configuration_bert import BertConfig
 
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -11,14 +11,15 @@ DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 
 def load_model(model_args, data_args, training_args):
 
-    config = T5Config.from_pretrained("google-t5/t5-small")
-    model = T5ForConditionalGeneration(config)
-
+    if 'google-t5' in model_args.model_name_or_path:
+        model = T5ForConditionalGeneration.from_pretrained(model_args.model_name_or_path, trust_remote_code=True)
+    else:
+        config = AutoConfig.from_pretrained(model_args.model_name_or_path)
+        model = AutoModel.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, config=config)
+    
     tokenizer = load_tokenizer(model_args, data_args, training_args)
     model.resize_token_embeddings(len(tokenizer))
     
-    #config = BertConfig.from_pretrained(model_args.model_name_or_path)
-    #model = AutoModel.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, config=config)
     return model.to(DEVICE)
     
 def load_tokenizer(model_args, data_args, training_args):
