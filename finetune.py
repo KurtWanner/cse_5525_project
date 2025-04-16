@@ -18,12 +18,14 @@ import sklearn
 import numpy as np
 from torch.utils.data import Dataset
 from distribute import *
+from accelerate import Accelerator
 
 from peft import (
     LoraConfig,
     get_peft_model,
     get_peft_model_state_dict,
 )
+
 
 PAD_IDX = 0
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -91,12 +93,22 @@ class SupervisedDataset(Dataset):
 
         print("Starting to load data: ", data_path)
 
+        sp1 = []
+        sp2 = []
+	
+        i = 0
         # load data from the disk
         with open(data_path, "r") as f:
-            data = [line.split('\t') for line in f.readlines()]
+            for line in tqdm(f.readlines()):
+                i += 1
+                if i % 2 != 0:
+                    continue
+                arrs = [x.split(',') for x in line.split('\t')]
+                sp1.append(torch.tensor([[int(x) for x in arrs[0][0:1024]]]))
+                sp2.append(torch.tensor([[int(x) for x in arrs[1][0:1024]]]))
         
         print("Loaded all data.")
-
+        """
         species1 = [d[0] for d in data]
         species2 = [d[1] for d in data]
 
@@ -115,11 +127,11 @@ class SupervisedDataset(Dataset):
         ) for x in species2]
 
         print("Tokenized inputs.")
-
-        self.input_ids = [x.input_ids for x in output1]
-        self.attention_mask = [x.attention_mask for x in output1]
-        self.decoder_input_ids = [x.input_ids for x in output2]
-        self.labels = [torch.cat((x.input_ids[:,1:], torch.tensor([[PAD_IDX]])), dim=1) for x in output2]
+        """
+        self.input_ids = sp1
+        self.attention_mask = [torch.ones_like(x) for x in sp1]
+        self.decoder_input_ids = sp2
+        self.labels = [torch.cat((x[:,1:], torch.tensor([[PAD_IDX]])), dim=1) for x in sp2]
 
     def __len__(self):
         return len(self.input_ids)
@@ -216,7 +228,7 @@ def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
     }
 
 def data_path(type, kmer):
-    return type + "_DNA_k" + str(kmer) + ".tsv"
+    return type + "_token.csv"
 
 criterion = nn.CrossEntropyLoss()
 def loss_func(outputs, labels, num_items_in_batch):
@@ -234,13 +246,13 @@ def train():
 
     # define datasets and data collator
     train_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, data_path('train', k)), 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('train', k)), 
                          kmer=data_args.kmer)
     val_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, data_path('dev', k)), 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('dev', k)), 
                          kmer=data_args.kmer)
     test_dataset = SupervisedDataset(tokenizer=tokenizer, 
-                         data_path=os.path.join(data_args.data_path, data_path('test', k)), 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('test', k)), 
                          kmer=data_args.kmer)
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 

@@ -1,0 +1,21 @@
+  0%|                                                                                                                                                                                                                                                                                     | 0/9240 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+  2%|████                                                                                                                                                                                                                                                                       | 141/9240 [00:55<59:02,  2.57it/s]Traceback (most recent call last):
+{'loss': 5.432, 'grad_norm': 1.1127928495407104, 'learning_rate': 1.6800000000000002e-05, 'epoch': 0.11}
+{'loss': 4.0909, 'grad_norm': 0.0, 'learning_rate': 2.9970620239390642e-05, 'epoch': 0.22}
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 287, in <module>
+    train()
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 271, in train
+    trainer.train()
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2560, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 3736, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 3815, in compute_loss
+    loss = self.compute_loss_func(outputs, labels, num_items_in_batch=num_items_in_batch)
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 237, in loss_func
+    return criterion(logits[non_pad], labels[non_pad])
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1507, in _wrapped_call_impl
+    def _wrapped_call_impl(self, *args, **kwargs):
+KeyboardInterrupt

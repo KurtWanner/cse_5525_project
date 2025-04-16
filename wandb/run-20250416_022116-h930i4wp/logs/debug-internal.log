@@ -1,0 +1,15 @@
+{"time":"2025-04-16T02:21:22.512384105-04:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"/fs/scratch/PAS2912/rodent_translation/cse_5525_project/wandb/run-20250416_022116-h930i4wp/logs/debug-core.log"}
+{"time":"2025-04-16T02:21:22.812115585-04:00","level":"INFO","msg":"created new stream","id":"h930i4wp"}
+{"time":"2025-04-16T02:21:22.812153273-04:00","level":"INFO","msg":"stream: started","id":"h930i4wp"}
+{"time":"2025-04-16T02:21:22.812714788-04:00","level":"INFO","msg":"handler: started","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:21:22.812749409-04:00","level":"INFO","msg":"writer: Do: started","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:21:22.812866159-04:00","level":"INFO","msg":"sender: started","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:21:23.044248811-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-16T02:22:01.579355072-04:00","level":"INFO","msg":"stream: closing","id":"h930i4wp"}
+{"time":"2025-04-16T02:22:01.579383696-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-16T02:22:01.579449027-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-16T02:22:05.578681147-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-04-16T02:22:05.890079157-04:00","level":"INFO","msg":"handler: closed","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:22:05.890117552-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:22:05.89024808-04:00","level":"INFO","msg":"sender: closed","stream_id":"h930i4wp"}
+{"time":"2025-04-16T02:22:05.890393439-04:00","level":"INFO","msg":"stream: closed","id":"h930i4wp"}

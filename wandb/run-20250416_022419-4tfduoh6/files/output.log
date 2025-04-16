@@ -1,0 +1,39 @@
+  0%|                                                                                                                                                                                                                                                                                     | 0/3470 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+  8%|█████████████████████▌                                                                                                                                                                                                                                                     | 281/3470 [03:23<38:11,  1.39it/s]Traceback (most recent call last):
+{'loss': 3.4575, 'grad_norm': 13.712371826171875, 'learning_rate': 6.000000000000001e-07, 'epoch': 0.03}
+{'loss': 5.0772, 'grad_norm': 12.440855979919434, 'learning_rate': 1.4000000000000001e-06, 'epoch': 0.06}
+{'loss': 5.8773, 'grad_norm': nan, 'learning_rate': 2.6e-06, 'epoch': 0.09}
+{'loss': 3.6237, 'grad_norm': nan, 'learning_rate': 3.4000000000000005e-06, 'epoch': 0.12}
+{'loss': 2.6601, 'grad_norm': nan, 'learning_rate': 4.2000000000000004e-06, 'epoch': 0.14}
+{'loss': 4.4564, 'grad_norm': 0.0, 'learning_rate': 4.800000000000001e-06, 'epoch': 0.17}
+{'loss': 4.2232, 'grad_norm': nan, 'learning_rate': 6e-06, 'epoch': 0.2}
+{'loss': 4.3997, 'grad_norm': nan, 'learning_rate': 6.800000000000001e-06, 'epoch': 0.23}
+{'loss': 3.1367, 'grad_norm': nan, 'learning_rate': 7.600000000000001e-06, 'epoch': 0.26}
+{'loss': 2.8863, 'grad_norm': 0.0, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.29}
+{'loss': 2.1323, 'grad_norm': nan, 'learning_rate': 8.8e-06, 'epoch': 0.32}
+{'loss': 1.9204, 'grad_norm': 0.0, 'learning_rate': 9.200000000000002e-06, 'epoch': 0.35}
+{'loss': 4.8228, 'grad_norm': nan, 'learning_rate': 9.994152046783626e-06, 'epoch': 0.37}
+{'loss': 3.7279, 'grad_norm': nan, 'learning_rate': 9.982456140350879e-06, 'epoch': 0.4}
+{'loss': 4.5886, 'grad_norm': nan, 'learning_rate': 9.961988304093569e-06, 'epoch': 0.43}
+{'loss': 4.0444, 'grad_norm': 0.0, 'learning_rate': 9.953216374269008e-06, 'epoch': 0.46}
+{'loss': 3.7364, 'grad_norm': nan, 'learning_rate': 9.938596491228071e-06, 'epoch': 0.49}
+{'loss': 2.8102, 'grad_norm': 0.0, 'learning_rate': 9.929824561403509e-06, 'epoch': 0.52}
+{'loss': 3.2337, 'grad_norm': nan, 'learning_rate': 9.915204678362574e-06, 'epoch': 0.55}
+{'loss': 4.6374, 'grad_norm': nan, 'learning_rate': 9.903508771929825e-06, 'epoch': 0.58}
+{'loss': 3.5377, 'grad_norm': 0.0, 'learning_rate': 9.894736842105264e-06, 'epoch': 0.61}
+{'loss': 3.6623, 'grad_norm': nan, 'learning_rate': 9.88011695906433e-06, 'epoch': 0.63}
+{'loss': 3.5552, 'grad_norm': 0.0, 'learning_rate': 9.868421052631579e-06, 'epoch': 0.66}
+{'loss': 2.0831, 'grad_norm': 0.0, 'learning_rate': 9.859649122807018e-06, 'epoch': 0.69}
+{'loss': 3.9126, 'grad_norm': nan, 'learning_rate': 9.84795321637427e-06, 'epoch': 0.72}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 9.84795321637427e-06, 'epoch': 0.75}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 9.84795321637427e-06, 'epoch': 0.78}
+{'loss': 0.0, 'grad_norm': nan, 'learning_rate': 9.84795321637427e-06, 'epoch': 0.81}
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 287, in <module>
+    train()
+  File "/fs/scratch/PAS2912/rodent_translation/cse_5525_project/finetune.py", line 271, in train
+    trainer.train()
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "/users/PAS2912/kurtwanner/miniconda3/envs/rodent/lib/python3.10/site-packages/transformers/trainer.py", line 2562, in _inner_training_loop
+    if (
+KeyboardInterrupt

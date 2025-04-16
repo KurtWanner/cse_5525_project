@@ -19,12 +19,11 @@ def load_model(model_args, data_args, training_args):
     
     #config = BertConfig.from_pretrained(model_args.model_name_or_path)
     #model = AutoModel.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, config=config)
-
     return model.to(DEVICE)
     
 def load_tokenizer(model_args, data_args, training_args):
     tokenizer = AutoTokenizer.from_pretrained(
-        "./kmer_tokenizers/" + data_args.kmer + "mer.model",
+        "./kmer_tokenizers/" + str(data_args.kmer) + "mer.model",
         model_max_length=training_args.model_max_length,
         padding_side="right",
         use_fast=True,
