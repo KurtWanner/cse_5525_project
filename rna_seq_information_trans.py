@@ -1,7 +1,7 @@
 from Bio.Blast import NCBIWWW, NCBIXML
 
 def blast_rna_seq(rna_seq):
-    rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "")
+     rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "").replace("T", "U")
     result_handle = NCBIWWW.qblast("blastn", "nt", rna_seq)
     blast_record = NCBIXML.read(result_handle)
     
@@ -30,7 +30,7 @@ def translate_rna_to_protein(rna_seq):
         "GAU": "D", "GAC": "D", "GAA": "E", "GAG": "E",
         "GGU": "G", "GGC": "G", "GGA": "G", "GGG": "G"
     }
-    rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "")
+    rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "").replace("T", "U")
     
     protein = ""
     for i in range(0, len(rna_seq), 3):
