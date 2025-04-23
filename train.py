@@ -1,145 +1,87 @@
 import os
-import argparse
-from tqdm import tqdm
+import csv
+import copy
+import json
+import logging
+from dataclasses import dataclass, field
+from typing import Any, Optional, Dict, Sequence, Tuple, List, Union
 
-import torch
-import torch.nn as nn
-import numpy as np
-import wandb
-
+from DNA_metrics import *
+from load_data import *
 from utils import *
-from transformers import GenerationConfig
+import torch
+import torch.distributed as dist
+import torch.nn as nn
+import torch.optim as optim
+import torch.multiprocessing as mp
+from torch.nn.parallel import DistributedDataParallel as DDP
+import transformers
+import sklearn
+import numpy as np
+from torch.utils.data import Dataset
+from distribute import *
+from accelerate import Accelerator
 
-DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+from peft import (
+    LoraConfig,
+    get_peft_model,
+    get_peft_model_state_dict,
+)
+
+
 PAD_IDX = 0
+DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-def get_args():
-    '''
-    Arguments for training. You may choose to change or extend these as you see fit.
-    '''
-    parser = argparse.ArgumentParser(description='Training loop')
-    
-    # Training hyperparameters
-    parser.add_argument('--optimizer_type', type=str, default="AdamW", choices=["AdamW"],
-                        help="What optimizer to use")
-    parser.add_argument('--learning_rate', type=float, default=1e-1)
-    parser.add_argument('--weight_decay', type=float, default=0)
+def train():
+    parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
+    model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
-    parser.add_argument('--scheduler_type', type=str, default="cosine", choices=["none", "cosine", "linear"],
-                        help="Whether to use a LR scheduler and what type to use if so")
-    parser.add_argument('--num_warmup_epochs', type=int, default=0,
-                        help="How many epochs to warm up the learning rate for if using a scheduler")
-    parser.add_argument('--max_n_epochs', type=int, default=0,
-                        help="How many epochs to train the model for")
+    # load tokenizer
+    tokenizer = load_tokenizer(model_args, data_args, training_args)
+    k = int(data_args.kmer)
 
-    parser.add_argument('--use_wandb', action='store_true',
-                        help="If set, we will use wandb to keep track of experiments")
-    parser.add_argument('--experiment_name', type=str, default='experiment',
-                        help="How should we name this experiment?")
+    # define datasets and data collator
+    train_dataset = SupervisedDataset(tokenizer=tokenizer, 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('train', k)), 
+                         kmer=data_args.kmer)
+    val_dataset = SupervisedDataset(tokenizer=tokenizer, 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('dev', k)), 
+                         kmer=data_args.kmer)
+    test_dataset = SupervisedDataset(tokenizer=tokenizer, 
+                         data_path=os.path.join(data_args.data_path, f'k{k}', data_path('test', k)), 
+                         kmer=data_args.kmer)
+    data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
-    # Data hyperparameters
-    parser.add_argument('--batch_size', type=int, default=16)
-    parser.add_argument('--test_batch_size', type=int, default=16)
+    # load model
+    model = load_model(model_args, data_args, training_args)
 
-    args = parser.parse_args()
-    return args
+    # define trainer
+    trainer = transformers.Trainer(model=model,
+                tokenizer=tokenizer,
+                args=training_args,
+                compute_loss_func=loss_func,
+                compute_metrics=compute_metrics,
+                train_dataset=train_dataset,
+                eval_dataset=val_dataset,
+                data_collator=data_collator)
+    trainer.train()
 
-def train(args, model, train_loader, dev_loader, optimizer, scheduler):
-    best_f1 = -1
-    epochs_since_improvement = 0
+    if training_args.save_model:
+        trainer.save_state()
+        safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
 
-    model_type = 'ft' if args.finetune else 'scr'
-    checkpoint_dir = os.path.join('checkpoints', f'{model_type}_experiments', args.experiment_name)
-    gt_sql_path = os.path.join(f'data/dev.sql')
-    gt_record_path = os.path.join(f'records/dev_gt_records.pkl')
-    model_sql_path = os.path.join(f'results/t5_{model_type}_{experiment_name}_dev.sql')
-    model_record_path = os.path.join(f'records/t5_{model_type}_{experiment_name}_dev.pkl')
-    for epoch in range(args.max_n_epochs):
-        tr_loss = train_epoch(args, model, train_loader, optimizer, scheduler)
-        print(f"Epoch {epoch}: Average train loss was {tr_loss}")
+    # get the evaluation results from trainer
+    if training_args.eval_and_save_results:
+        results_path = os.path.join(training_args.output_dir, "results", training_args.run_name)
+        results = trainer.evaluate(eval_dataset=test_dataset)
+        os.makedirs(results_path, exist_ok=True)
+        with open(os.path.join(results_path, "eval_results.json"), "w") as f:
+            json.dump(results, f)
 
-        eval_loss, record_f1, record_em, sql_em, error_rate = eval_epoch(args, model, dev_loader,
-                                                                         gt_sql_path, model_sql_path,
-                                                                         gt_record_path, model_record_path)
-        print(f"Epoch {epoch}: Dev loss: {eval_loss}, Record F1: {record_f1}, Record EM: {record_em}, SQL EM: {sql_em}")
-        print(f"Epoch {epoch}: {error_rate*100:.2f}% of the generated outputs led to SQL errors")
 
-        if args.use_wandb:
-            result_dict = {
-                'train/loss' : tr_loss,
-                'dev/loss' : eval_loss,
-                'dev/record_f1' : record_f1,
-                'dev/record_em' : record_em,
-                'dev/sql_em' : sql_em,
-                'dev/error_rate' : error_rate,
-            }
-            wandb.log(result_dict, step=epoch)
+def data_path(type, kmer):
+    return type + "_token.csv"
 
-        if record_f1 > best_f1:
-            best_f1 = record_f1
-            epochs_since_improvement = 0
-        else:
-            epochs_since_improvement += 1
-
-        save_model(checkpoint_dir, model, best=False)
-        if epochs_since_improvement == 0:
-            save_model(checkpoint_dir, model, best=True)
-
-        if epochs_since_improvement >= args.patience_epochs:
-            break
-
-def train_epoch(args, model, train_loader, optimizer, scheduler):
-    model.train()
-    total_loss = 0
-    total_tokens = 0
-    criterion = nn.CrossEntropyLoss()
-
-    for encoder_input, encoder_mask, decoder_input, decoder_targets, _ in tqdm(train_loader):
-        optimizer.zero_grad()
-        encoder_input = encoder_input.to(DEVICE)
-        encoder_mask = encoder_mask.to(DEVICE)
-        decoder_input = decoder_input.to(DEVICE)
-        decoder_targets = decoder_targets.to(DEVICE)
-
-        logits = model(
-            input_ids=encoder_input,
-            attention_mask=encoder_mask,
-            decoder_input_ids=decoder_input,
-        )['logits']
-
-        non_pad = decoder_targets != PAD_IDX
-        loss = criterion(logits[non_pad], decoder_targets[non_pad])
-        loss.backward()
-        optimizer.step()
-        if scheduler is not None: 
-            scheduler.step()
-
-        with torch.no_grad():
-            num_tokens = torch.sum(non_pad).item()
-            total_loss += loss.item() * num_tokens
-            total_tokens += num_tokens
-
-    return total_loss / total_tokens
-        
-
-def main():
-    # Get key arguments
-    args = get_args()
-    if args.use_wandb:
-        setup_wandb(args)
-
-    # Load the data and the model
-    train_loader, dev_loader, test_loader = load_t5_data(args.batch_size, args.test_batch_size)
-    model = initialize_model(args)
-    optimizer, scheduler = initialize_optimizer_and_scheduler(args, model, len(train_loader))
-
-    # Train 
-    train(args, model, train_loader, dev_loader, optimizer, scheduler)
-
-    # Evaluate
-    model = load_model_from_checkpoint(args, best=True)
-    model.eval()
-    
 
 if __name__ == "__main__":
-    main()
+    train()
