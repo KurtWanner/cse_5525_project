@@ -1,7 +1,9 @@
 *.vs
 *.pub
+__pycache__
 project
 training_data
 output
 data
 allocate.sh
+wandb

@@ -19,7 +19,6 @@ import transformers
 import sklearn
 import numpy as np
 from torch.utils.data import Dataset
-from distribute import *
 from accelerate import Accelerator
 
 from peft import (
@@ -67,8 +66,7 @@ def train():
     trainer.train()
 
     if training_args.save_model:
-        trainer.save_state()
-        safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
+        save_model(model_args, data_args, training_args, model)
 
     # get the evaluation results from trainer
     if training_args.eval_and_save_results:

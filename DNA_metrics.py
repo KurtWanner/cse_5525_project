@@ -16,7 +16,6 @@ import transformers
 import sklearn
 import numpy as np
 from torch.utils.data import Dataset
-from distribute import *
 from accelerate import Accelerator
 
 from peft import (
@@ -25,6 +24,8 @@ from peft import (
     get_peft_model_state_dict,
 )
 
+
+PAD_IDX = 0
 criterion = nn.CrossEntropyLoss()
 
 def loss_func(outputs, labels, num_items_in_batch):

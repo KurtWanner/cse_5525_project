@@ -17,7 +17,6 @@ import transformers
 import sklearn
 import numpy as np
 from torch.utils.data import Dataset
-from distribute import *
 from accelerate import Accelerator
 
 from peft import (
@@ -26,7 +25,7 @@ from peft import (
     get_peft_model_state_dict,
 )
 
-PAD_IDX = -100
+PAD_IDX = 0
 
 @dataclass
 class ModelArguments:
@@ -136,7 +135,7 @@ class SupervisedDataset(Dataset):
         with open(data_path, "r") as f:
             for line in tqdm(f.readlines()):
                 i += 1
-                if i % 2 != 0:
+                if i % 10 != 0:
                     continue
                 arrs = [x.split(',') for x in line.split('\t')]
                 sp1.append(torch.tensor([[int(x) for x in arrs[0][0:512]]]))
@@ -184,6 +183,7 @@ class SupervisedDataset(Dataset):
 class DataCollatorForSupervisedDataset(object):
     """Collate examples for supervised fine-tuning."""
 
+    tokenizer: transformers.PreTrainedTokenizer
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
         input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
