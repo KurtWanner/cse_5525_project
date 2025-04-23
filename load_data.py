@@ -26,6 +26,8 @@ from peft import (
     get_peft_model_state_dict,
 )
 
+PAD_IDX = -100
+
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(default="facebook/opt-125m")
@@ -79,7 +81,6 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: st
         del state_dict
         trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
 
-
 """
 Get the reversed complement of the original DNA sequence.
 """
@@ -88,13 +89,13 @@ def get_alter_of_dna_sequence(sequence: str):
     # return "".join([MAP[c] for c in reversed(sequence)])
     return "".join([MAP[c] for c in sequence])
 
-"""
-Transform a dna sequence to k-mer string
-"""
 def generate_kmer_str(sequence: str, k: int) -> str:
     """Generate k-mer string from DNA sequence."""
     return " ".join([sequence[i:i+k] for i in range(len(sequence) - k + 1)])
 
+def generate_kmer(texts: List[str], k: int) -> List[str]:
+    """Load or generate k-mer string for each DNA sequence."""
+    return [generate_kmer_str(text, k) for text in texts] 
 
 """
 Load or generate k-mer string for each DNA sequence. The generated k-mer string will be saved to the same directory as the original data with the same name but with a suffix of "_{k}mer".
@@ -125,67 +126,82 @@ class SupervisedDataset(Dataset):
 
         super(SupervisedDataset, self).__init__()
 
+        print("Starting to load data: ", data_path)
+
+        sp1 = []
+        sp2 = []
+	
+        i = 0
         # load data from the disk
         with open(data_path, "r") as f:
-            data = list(csv.reader(f))[1:]
-        if len(data[0]) == 2:
-            # data is in the format of [text, label]
-            logging.warning("Perform single sequence classification...")
-            texts = [d[0] for d in data]
-            labels = [int(d[1]) for d in data]
-        elif len(data[0]) == 3:
-            # data is in the format of [text1, text2, label]
-            logging.warning("Perform sequence-pair classification...")
-            texts = [[d[0], d[1]] for d in data]
-            labels = [int(d[2]) for d in data]
-        else:
-            raise ValueError("Data format not supported.")
+            for line in tqdm(f.readlines()):
+                i += 1
+                if i % 2 != 0:
+                    continue
+                arrs = [x.split(',') for x in line.split('\t')]
+                sp1.append(torch.tensor([[int(x) for x in arrs[0][0:512]]]))
+                sp2.append(torch.tensor([[int(x) for x in arrs[1][0:512]]]))
         
-        if kmer != -1:
-            # only write file on the first process
-            if torch.distributed.get_rank() not in [0, -1]:
-                torch.distributed.barrier()
+        print("Loaded all data.")
+        """
+        species1 = [d[0] for d in data]
+        species2 = [d[1] for d in data]
 
-            logging.warning(f"Using {kmer}-mer as input...")
-            texts = load_or_generate_kmer(data_path, texts, kmer)
-
-            if torch.distributed.get_rank() == 0:
-                torch.distributed.barrier()
-
-        output = tokenizer(
-            texts,
+        output1 = [tokenizer(
+            x,
             return_tensors="pt",
-            padding="longest",
             max_length=tokenizer.model_max_length,
             truncation=True,
-        )
+        ) for x in species1]
 
-        self.input_ids = output["input_ids"]
-        self.attention_mask = output["attention_mask"]
-        self.labels = labels
-        self.num_labels = len(set(labels))
+        output2 = [tokenizer(
+            x,
+            return_tensors="pt",
+            max_length=tokenizer.model_max_length,
+            truncation=True,
+        ) for x in species2]
+
+        print("Tokenized inputs.")
+        """
+        self.input_ids = sp1
+        self.attention_mask = [torch.ones_like(x) for x in sp1]
+        self.decoder_input_ids = sp2
+        self.labels = [torch.cat((x[:,1:], torch.tensor([[PAD_IDX]])), dim=1) for x in sp2]
 
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
-        return dict(input_ids=self.input_ids[i], labels=self.labels[i])
+        return dict(
+            input_ids=self.input_ids[i][0], 
+            attention_mask=self.attention_mask[i][0],
+            decoder_input_ids = self.decoder_input_ids[i][0],
+            labels=self.labels[i][0]
+        )
 
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):
     """Collate examples for supervised fine-tuning."""
 
-    tokenizer: transformers.PreTrainedTokenizer
 
     def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
+        input_ids, attention_mask, decoder_input_ids, labels = tuple([instance[key] for instance in instances] for key in ["input_ids", "attention_mask", "decoder_input_ids", "labels"])
         input_ids = torch.nn.utils.rnn.pad_sequence(
-            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+            input_ids, batch_first=True, padding_value=PAD_IDX
         )
-        labels = torch.Tensor(labels).long()
+        attention_mask = torch.nn.utils.rnn.pad_sequence(
+            attention_mask, batch_first=True, padding_value=PAD_IDX
+        )
+        decoder_input_ids = torch.nn.utils.rnn.pad_sequence(
+            decoder_input_ids, batch_first=True, padding_value=PAD_IDX
+        )
+        labels = torch.nn.utils.rnn.pad_sequence(
+            labels, batch_first=True, padding_value=PAD_IDX
+        )
         return dict(
             input_ids=input_ids,
+            attention_mask=attention_mask,
+            decoder_input_ids=decoder_input_ids,
             labels=labels,
-            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
         )

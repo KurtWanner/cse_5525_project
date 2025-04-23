@@ -29,7 +29,7 @@ criterion = nn.CrossEntropyLoss()
 
 def loss_func(outputs, labels, num_items_in_batch):
     logits = outputs['logits']    
-    non_pad = labels != 0
+    non_pad = labels != PAD_IDX
     return criterion(logits[non_pad], labels[non_pad])
 
 def preprocess_logits_for_metrics(logits:Union[torch.Tensor, Tuple[torch.Tensor, Any]], _):
@@ -42,7 +42,6 @@ def preprocess_logits_for_metrics(logits:Union[torch.Tensor, Tuple[torch.Tensor,
 
     return torch.argmax(logits, dim=-1)
 
-
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
     """Collects the state dict and dump to disk."""
     state_dict = trainer.model.state_dict()
@@ -50,7 +49,6 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: st
         cpu_state_dict = {key: value.cpu() for key, value in state_dict.items()}
         del state_dict
         trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
-
 
 """
 Get the reversed complement of the original DNA sequence.
@@ -60,7 +58,6 @@ def get_alter_of_dna_sequence(sequence: str):
     # return "".join([MAP[c] for c in reversed(sequence)])
     return "".join([MAP[c] for c in sequence])
 
-
 """
 Compute metrics used for huggingface trainer.
 """ 
@@ -68,6 +65,7 @@ def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     #return calculate_metric_with_sklearn(predictions, labels)
     return {"f1": 0.0}
+
 def calculate_metric_with_sklearn(predictions: np.ndarray, labels: np.ndarray):
     valid_mask = labels != PAD_IDX  # Exclude padding tokens 
     valid_predictions = predictions[valid_mask]

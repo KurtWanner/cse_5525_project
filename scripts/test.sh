@@ -10,16 +10,16 @@ python train.py \
     --model_name_or_path google-t5/t5-base \
     --data_path  ${data_path} \
     --kmer ${kmer} \
-    --run_name t5_base${kmer} \
-    --model_max_length 2048 \
-    --per_device_train_batch_size 16 \
-    --per_device_eval_batch_size 16 \
+    --run_name test_${kmer} \
+    --model_max_length 1024 \
+    --per_device_train_batch_size 8 \
+    --per_device_eval_batch_size 8 \
     --gradient_accumulation_steps 1 \
     --learning_rate 3e-6 \
     --weight_decay 1e-2 \
     --num_train_epochs 10 \
     --fp16 \
-    --output_dir output/t5_base_${kmer} \
+    --output_dir output/test_${kmer} \
     --evaluation_strategy epoch \
     --save_strategy epoch \
     --warmup_steps 50 \
