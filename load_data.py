@@ -135,7 +135,7 @@ class SupervisedDataset(Dataset):
         with open(data_path, "r") as f:
             for line in tqdm(f.readlines()):
                 i += 1
-                if i % 10 != 0:
+                if i % 5 != 0:
                     continue
                 arrs = [x.split(',') for x in line.split('\t')]
                 sp1.append(torch.tensor([[int(x) for x in arrs[0][0:512]]]))

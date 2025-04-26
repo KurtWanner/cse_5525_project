@@ -2,12 +2,12 @@
 cd ..
 # This is your argument
 data_path=training_data
-run_name=t5_kmer3
-kmer=3
+run_name=t5_kmer5
+kmer=5
 
 echo "The provided kmer is: $kmer, data_path is $data_path"
 
-python train.py \
+python eval.py \
     --model_name_or_path google-t5/t5-base \
     --data_path  ${data_path} \
     --kmer ${kmer} \

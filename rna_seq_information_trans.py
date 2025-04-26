@@ -1,7 +1,46 @@
 from Bio.Blast import NCBIWWW, NCBIXML
 
+def jaccard(s1, s2):
+    union = []
+    conj = []
+
+    for x in s1:
+        if x not in union:
+            union.append(x)
+        if x in s2 and x not in conj:
+            conj.append(x)
+
+    for x in s2:
+        if x not in union:
+            union.append(x)
+
+    return len(conj) * 1.0 / len(union)
+
+
+def soren_dice(s1, s2):
+    union = []
+    conj = []
+
+    for x in s1:
+        if x not in union:
+            union.append(x)
+        if x in s2 and x not in conj:
+            conj.append(x)
+
+    for x in s2:
+        if x not in union:
+            union.append(x)
+
+    return (2.0 * len(conj)) / (len(s1) + len(s2))
+
+def eval_rna(rna1, rna2):
+    g1 = blast_rna_seq(rna1)
+    g2 = blast_rna_seq(rna2)
+
+    return (soren_dice(g1, g2), jaccard(g1, g2))
+
 def blast_rna_seq(rna_seq):
-     rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "").replace("T", "U")
+    rna_seq = rna_seq.upper().replace(" ", "").replace("\n", "").replace("T", "U")
     result_handle = NCBIWWW.qblast("blastn", "nt", rna_seq)
     blast_record = NCBIXML.read(result_handle)
     
@@ -45,8 +84,20 @@ def translate_rna_to_protein(rna_seq):
         protein += amino_acid
     return protein
 
+def evaluation():
+    with open('results/eval_5mer.tsv', 'r') as f:
+        data = [line.split('\t') for line in f.readlines()]
+
+    for x in data:
+        s1 = x[0]
+        s2 = x[1]
+        g1 = blast_rna_seq(s1)
+        g2 = blast_rna_seq(s2)
+        print(soren_dice(g1, g2), jaccard(g1, g2))
+
 
 if __name__ == "__main__":
+    evaluation()
     sample_rna = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA"
     try:
         blast_results = blast_rna_seq(sample_rna)
