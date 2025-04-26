@@ -1,0 +1,11 @@
+Epoch 1 | Loss: 3.9547
+Epoch 2 | Loss: 3.7968
+Epoch 3 | Loss: 3.7438
+Epoch 4 | Loss: 3.6978
+Epoch 5 | Loss: 3.6575
+Epoch 6 | Loss: 3.6187
+Epoch 7 | Loss: 3.5811
+Epoch 8 | Loss: 3.5441
+Epoch 9 | Loss: 3.5089
+Epoch 10 | Loss: 3.4709
+Token-level Accuracy (first target token): 0.0954
